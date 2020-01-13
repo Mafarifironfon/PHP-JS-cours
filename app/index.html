@@ -12,47 +12,11 @@
             <input type="text" name="username"/>
             <label>Password</label>
             <input type="password" name="password"/>
-            <button type="button">Login</button>
+            <button type="submit">Login</button>
         </form>
     </main>
     
 
-    <script>
-        const $main = document.querySelector('main');
-        const $btnSend = document.querySelector('button');
-        const $username = document.querySelector('input[name="username"]');
-        const $password = document.querySelector('input[name="password"]');
-
-        $btnSend.addEventListener('click', (evt) => {
-            // Récupérer les valeurs du formulaire
-            const data = {
-                username: $username.value,
-                password: $password.value
-            };
-
-            // Envoi de la requete de connexion au serveur
-            fetch('http://localhost/web-1-2/api/login.php', {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(res => res.json())
-                .then(data => {
-                    // Lecture de la réponse
-                    if(data && data.success){
-                        $main.innerHTML = `
-                        <p>Hello ${data.username}</p>
-                        `; 
-                    }else{
-                        // Mauvais login
-                        alert("Bad login");
-                        $username.value = ""
-                        $password.value = ""
-                    }
-                })
-        })
-    </script>
+    <script src="app.js"></script>
 </body>
 </html>
