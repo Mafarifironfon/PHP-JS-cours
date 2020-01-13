@@ -1,5 +1,6 @@
 <?php
 require_once '../common/auth.php';
+require_once './utils.php';
 
 // Takes raw data from the request
 $json = file_get_contents('php://input');
@@ -25,7 +26,3 @@ if(do_login($data->username, $data->password)){
     ]);
 }
 
-function send_json(Array $response): void {
-    header('Content-Type: application/json');
-    echo json_encode($response);
-}
