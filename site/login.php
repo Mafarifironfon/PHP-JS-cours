@@ -1,19 +1,18 @@
 <?php
+require_once '../common/auth.php';
 
-if(!isset($_POST['username'])){
+if(!isset($_POST['username']) || !isset($_POST['password'])){
+    redirect_to('index.php');
     return;
 }
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-
-$allowedUsername = "JeanJean";
-$allowedPassword = "password";
-
-if($username === $allowedUsername && 
-$password === $allowedPassword){
-    header('Location: posts.php', true, 301);
+if(do_login($_POST['username'], $_POST['password'])){
+    redirect_to('posts.php');
 }else{
-    header('Location: index.php', true, 301);
+    redirect_to('index.php');
+}
+
+function redirect_to(string $url): void {
+    header("Location: $url", true, 301);
     exit;
 }

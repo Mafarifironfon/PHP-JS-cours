@@ -1,37 +1,31 @@
 <?php
+require_once '../common/auth.php';
+
 // Takes raw data from the request
 $json = file_get_contents('php://input');
 // Converts it into a PHP object
 $data = json_decode($json);
 
-if(!isset($data->username)){
-    header('Content-Type: application/json');
-    $response = [
+if(!isset($data->username) || !isset($data->password)){
+    send_json([
         "success" => false,
         "error" => "Bad input"
-    ];
-    echo json_encode($response);
-    return;
+    ]);
+    exit;
 }
 
-$username = $data->username;
-$password = $data->password;
-
-$allowedUsername = "JeanJean";
-$allowedPassword = "password";
-
-if($username === $allowedUsername && 
-$password === $allowedPassword){
-    header('Content-Type: application/json');
-    $response = [
+if(do_login($data->username, $data->password)){
+    send_json([
         "success" => true,
-        "username" => $username
-    ];
-    echo json_encode($response);
+        "username" => $data->username
+    ]);
 }else{
-    header('Content-Type: application/json');
-    $response = [
+    send_json([
         "success" => false,
-    ];
+    ]);
+}
+
+function send_json(Array $response): void {
+    header('Content-Type: application/json');
     echo json_encode($response);
 }
