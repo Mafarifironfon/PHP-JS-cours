@@ -1,17 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-  <?php 
-  $post_id=$_GET["id"];
-  require_once '../common/post.php';
-  $post = get_post ($post_id);?>
-  <h3><?= $post["title"]?></h3>
-  <p><?= $post["body"]?></p>
-</body>
+    <!-- HEAD -->
+    <?php
+    require_once '../common/post.php';
+    $title="Liste des posts";
+    include_once 'head.php';
+    ?>
+
+    <body>
+        <!-- RECUPERE L ID ENVOYE PAR LE FICHIER POSTS - METHODE GET -->
+        <?php $post_id=$_GET["id"];?>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Post n° <?=$post_id?></h1>
+                </div>
+            </div>
+        </div>
+    
+     
+        <?php $post = get_post ($post_id);?>
+        <h3><?= $post["title"]?></h3>
+        <p><?= $post["body"]?></p>
+
+        <?php include_once 'bootstrap.php'; ?>
+  </body>
 </html>
