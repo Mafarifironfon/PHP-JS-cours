@@ -1,3 +1,8 @@
+<?php
+session_start();
+$_SESSION['sizeListPost'] = 0; 
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <!-- HEAD -->
@@ -20,12 +25,14 @@
                         $myvar = 0;
                         foreach ($array as $value){ ?>
                             <li>
-                                <a href="./postpage.php?id=<?php echo $myvar ?>" >
-                                <h3>hello<?= $value['title']; ?></h3></a>  
+                                <a href="./postpage.php?id=<?php echo $myvar; ?>" >
+                                <h3><?= $value['title']; ?></h3></a>  
                             </li>
                         <?php 
                         $myvar++;
-                        } ?>
+                        }
+                        $_SESSION['sizeListPost'] = $myvar;
+                        ?>
                     </ul>
                 </div>
             </div>

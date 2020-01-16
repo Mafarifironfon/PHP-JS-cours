@@ -10,7 +10,7 @@ function get_post(int $index): ?Array {
   $posts = get_posts();
   if(!empty($posts) && count($posts) > $index && $index > -1){
     return $posts[$index];
-  }
+}
 
   return null;
 }

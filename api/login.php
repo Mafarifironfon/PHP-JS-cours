@@ -2,12 +2,14 @@
 require_once '../common/auth.php';
 require_once './utils.php';
 
-// Takes raw data from the request
+// recupère la requete 
 $json = file_get_contents('php://input');
-// Converts it into a PHP object
+// DECODE LE FORMAT JSON --> CONVERTI EN UN TABLEAU PHP
 $data = json_decode($json);
 
+//
 if(!isset($data->username) || !isset($data->password)){
+    // REPONDS A LA REQUETE FORMAT JSON
     send_json([
         "success" => false,
         "error" => "Bad input"

@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
     <!-- HEAD -->
@@ -14,7 +16,7 @@
         <div class="container">
             <div class="row fond border">
                 <div class="col-12 filtreGreen">
-                    <h1>Post n° <?=$post_id?></h1>
+                    <h1>Post n°<?=$post_id+1?></h1>
                 </div>
                 
                 <div class="col-12 filtreGreen">
@@ -23,6 +25,11 @@
                     <p><?= $post["body"]?></p>
                 </div>
                 
+                <div class="col-12 d-flex  align-items-center justify-content-around filtreGreen">
+                    <a href="./postpage.php?id=<?= $post_id > 0 ? $post_id - 1:$post_id;?>" class="btn btn-outline-primary">Précédent</a>
+                    <a href="./posts.php" class="btn btn-outline-primary">Retour</a>
+                    <a href="./postpage.php?id=<?= $post_id < $_SESSION['sizeListPost']-1 ? $post_id + 1:$post_id;?>" class="btn btn-outline-primary">Suivant</a>
+                </div>
             </div>
         </div>
         <?php include_once './../components/bootstrap.php'; ?>

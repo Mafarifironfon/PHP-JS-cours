@@ -11,8 +11,8 @@ $form.addEventListener('submit', (evt) => {
     password: $password.value
   };
 
-  // Envoi de la requete de connexion au serveur
-  fetch('http://localhost/php-start12/api/login.php', {
+  // Envoi les information du formulaire au serveur
+  fetch('./../api/login.php', {
       method: "POST",
       body: JSON.stringify(data)
     })
