@@ -1,7 +1,7 @@
 <?php
 function do_login(string $username, string $password): bool {
-  $allowedUsername = "jj";
-  $allowedPassword = "xx";
+  $allowedUsername = "mafarifironfon";
+  $allowedPassword = "password";
 
   if($username === $allowedUsername && 
      $password === $allowedPassword){
