@@ -16,7 +16,6 @@ function do_login(string $username, string $password): bool {
     return false;
 }
 
-
 function deleteUser($username){
     $users = get_posts("./data/user.json");
     $cpt=0;
@@ -36,4 +35,20 @@ function deletePost($index){
     $posts = get_posts("./data/posts.json");
     array_splice( $posts,$index,1);
     set_posts($posts,"./data/posts.json");
+}
+
+function deleteUserById($index){
+    $users = get_posts("./data/user.json");
+    array_splice($users,$index,1);
+    set_posts($users,"./data/user.json");
+}
+
+function change_role($id,$role){
+    $tab = get_posts("/data/user.json");
+    $tab[$id] = [
+        "username" => $tab[$id]['username'],
+        "password" => $tab[$id]['password'],
+        "role" => $role
+    ];
+    set_posts($tab,"/data/user.json");
 }

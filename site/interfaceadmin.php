@@ -7,8 +7,19 @@
     if ($_SESSION["is_admin"]) {
         require_once '../common/post.php';
     ?>
-    <h1 class="text-center bg-dark text-white p-3"> Bonjour <?= $_SESSION['username'] . ' ' . $_SESSION['pseudo']; ?>
-    </h1>
+    <div class="container mb-2">
+        <div class=" row bg-dark text-white border">
+            <div class="col-10">
+                <h1 class="text-center"> Bonjour
+                    <?= $_SESSION['username'] . ' ' . $_SESSION['pseudo']; ?>
+                </h1>
+            </div>
+            <div class="col-2 d-flex align-items-center justify-content-center">
+                <?php include_once 'deconnexion.php'?>
+            </div>
+        </div>
+    </div>
+
     <?php
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // The request is using the POST method
@@ -27,7 +38,7 @@
                         <textarea name="body" id="body" class="form-control" rows="5" placeholder="Contenu"></textarea>
                     </div>
                     <div class="text-center">
-                       <button type="submit" class="btn btn-success">Ajouter</button>  
+                        <button type="submit" class="btn btn-success">Ajouter</button>
                     </div>
                 </form>
                 <hr>
@@ -68,8 +79,8 @@
                     } ?>
                 </div>
             </div>
-            <div class="col-6">
-            <h3 class="text-center bg-dark text-danger border p-2">Liste des utilisateurs</h3>
+            <div class="col-6 d-flex flex-column pr-0">
+                <h3 class="text-center bg-dark text-danger p-2">Liste des utilisateurs</h3>
                 <?php
                 $array = get_posts("/data/user.json");
                 $myuser = 0;
@@ -91,23 +102,27 @@
                         <tr>
                             <th scope="row"><?= $myuser ?></th>
                             <td><?= $value["username"] ?></td>
-                            <td><?= $value["role"] ?></td>
-                            <td>
-                                <a href="#"><i class="fas fa-trash text-info"></i></a>
-                            </td>
 
+                            <td><?= $value["role"] ?>
+                                <div class="dropdown">
+                                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                                        id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Rôle
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item"
+                                            href="login.php?id=<?= $myuser ?>&changeRole=admin">Admin</a>
+                                        <a class="dropdown-item"
+                                            href="login.php?id=<?= $myuser ?>&changeRole=member">Member</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <a href="login.php?idUser=<?= $myuser ?>"><i class="fas fa-trash text-info"></i></a>
+                            </td>
                         </tr>
                     </tbody>
-
-
-                    <!-- <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                    <div class="btn-group mr-2 w-100" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-outline-dark"><?= $myuser ?></button>
-                        <button type="button" class="btn btn-outline-dark"><?= $value["username"] ?></button>
-                        <button type="button" class="btn btn-outline-dark"><?= $value["role"] ?></button>
-                        <button type="button" class="btn btn-outline-dark">Delete</button>
-                    </div>
-                </div> -->
 
                     <?php
                 $myuser++;

@@ -4,7 +4,23 @@ session_start();
 require_once '../common/auth.php';
 require_once '../common/post.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if(isset($_GET['changeRole']) && isset($_GET['id'])){
+        change_role($_GET['id'],$_GET['changeRole']);
+        redirect_to('interfaceadmin.php');
+    }
+
+    if (isset($_GET["idUser"])){
+        deleteUserById($_GET["idUser"]);
+        redirect_to('interfaceadmin.php');
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['deconnexion'])){
+        if(session_status() === PHP_SESSION_ACTIVE) session_destroy();
+        redirect_to('index.php');
+    }
     if(isset($_POST['del'])){
         deletePost( $_POST['id'] );
         redirect_to('interfaceadmin.php');
